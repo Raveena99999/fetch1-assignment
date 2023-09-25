@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Display user data</title>
+    <style>
+      #main {
+        /* border: 2px solid black; */
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 20px;
+        width: 60%;
+        margin: auto;
+        margin-top: 40px;
+        justify-content: center;
+        text-align: center;
+      }
+      .divbox {
+        background-color: rgb(197, 85, 85);
+        height: 270px;
+        width: 200px;
+        border: 2px solid black;
+      }
+      button {
+        display: block;
+        position: fixed;
+        left: 570px;
+        top: 10px;
+        width: 200px;
+        border: 3px solid #73ad21;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <button onclick="fetchData()">Fetch Users</button>
+
+    <script src="userdata.js"></script>
+  </body>
+</html>

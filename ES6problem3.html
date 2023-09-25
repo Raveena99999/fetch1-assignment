@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>convert case</title>
+  </head>
+  <body>
+    <script>
+      let flag = false;
+      let convert_char = (char) => {
+        let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let lower = "abcdefghijklmnopqrstuvwxyz";
+        for (let i = 0; i < upper.length; i++) {
+          if (char == upper[i]) {
+            flag = true;
+            return lower[i];
+          }
+        }
+        return char;
+      };
+
+      // console.log(convert_char("m"))
+
+      let convert_word = (word) => {
+        let str = "";
+        for (let i = 0; i < word.length; i++) {
+          str += convert_char(word[i]);
+        }
+        return str;
+      };
+    //   console.log(convert_word("MINE"));
+
+      let arr = ["MA", "SA", "I", "SCH", "OOL"];
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] = convert_word(arr[i]);
+      }
+      console.log(arr);
+    </script>
+  </body>
+</html>

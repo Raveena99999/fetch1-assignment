@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search App</title>
+    <style>
+
+ #main{
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+    color: blue;
+ }
+ #srchmovie{
+    padding: 8px;
+    font-size: 20px;
+    text-align: center;
+ }
+ button{
+width: 50px;
+height: 25px;
+ }
+ #root{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+ }
+
+
+    </style>
+</head>
+<body>
+    <div id="main">
+    <label for="">Search movies here:</label>
+    <input type="text" name="" id="srchmovie" placeholder="Enter movie name">
+    <button>Enter</button>
+</div>
+    <div id="root"></div>
+</body>
+<script>
+   let omdb_api_key = "eb0b6d6";
+   let input_movie = document.getElementById("srchmovie");
+   let searchBtn=document.querySelector('button');
+   let display_root = document.getElementById("root")
+
+   searchBtn.addEventListener("click",function(){
+    fetch(`http://www.omdbapi.com/?apikey=eb0b6d6&s=${input_movie.value}`)
+.then((response) =>{
+    return response.json()
+})
+.then((data) =>{
+    let movies = data.Search;
+    display_movies(movies)
+    console.log(data)
+})
+.catch((eror)=>{
+    // console.log(error);
+    display_root.innerText = "finding error"
+})
+   })
+
+   function display_movies(user_data){
+    user_data.forEach(function(element){
+
+    let movie_card = document.createElement("div")
+        movie_card.className = "movies_card"
+
+        let movie_tittle = document.createElement("p")
+        movie_tittle.innerText = element.Title
+
+        let movie_img = document.createElement("img")
+        movie_img.src = element.Poster
+
+        let movie_year = document.createElement("p")
+        movie_year.innerText = element.Year
+
+        let movie_type = document.createElement("p")
+        movie_type.innerText = element.Type
+
+        let movie_id = document.createElement("p")
+        movie_id.innerText = element.imdbID
+
+
+movie_card.append(movie_tittle,movie_img,movie_year,movie_type,movie_id)
+display_root.append(movie_card)
+
+
+
+
+
+    })
+   }
+
+       
+    </script>                       
+</html>
+
+
