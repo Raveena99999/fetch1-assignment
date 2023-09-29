@@ -4,8 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>counter</title>
+    <style>
+
+
+#display{
+border: 2px solid #000000;
+/* text-align: center; */
+height: 60px;
+width: 80px;
+margin: auto;
+margin-top: 180px;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 30px;
+color: white;
+background-color: black;
+border: 2px solid gray;
+}
+#increement{
+margin-left: 480px;
+margin-top: 70px;
+padding: 10px;
+font-size: 20px;
+color: white;
+background-color: black;
+}
+#decreement{
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+background-color: black;
+}
+#startStop{
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+background-color: black;
+}
+    </style>
 </head>
 <body>
-    
+   
+<div id="display">0</div>
+<button id="increement" onclick="increement()">Increement(+)</button>
+<button id="decreement" onclick="decreement()">Decreement(-)</button>
+<button id="startStop" onclick="startStop()">StartStop</button>
 </body>
 </html>
+<script>
+let Mydisplay = document.getElementById("display")
+
+class Counter{
+    constructor(){
+        this.count = 0;
+        this.intervalId = null
+        this.automatic = true
+    }
+increement(){
+    this.count++
+    clearInterval(this.interval)
+    Mydisplay.innerText = this.count
+}
+startStop(){
+    if(this.automatic){
+        this.interval = setInterval(()=>{
+            this.count++
+            Mydisplay.innerText = this.count
+        },1000)
+        this.automatic = false
+    }
+    else if(this.automatic == false){
+        clearInterval(this.interval)
+        this.flag = true
+    }
+}
+decreement(){
+    this.count--
+    clearInterval(this.interval)
+    Mydisplay.innerText = this.count
+}
+}
+
+let counter1 = new Counter()
+
+function startStop(){
+    counter1.startStop();
+}
+function increement(){
+    counter1.increement()
+}
+function decreement(){
+    counter1.decreement()
+}
+
+</script>
