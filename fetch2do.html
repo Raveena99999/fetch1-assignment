@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetchtodo</title>
+    <style>
+      table {
+        margin: auto;
+      }
+      .headTable {
+        height: 50px;
+      }
+      .bodyTable {
+        height: 25px;
+      }
+      table,
+      th,
+      td {
+        text-align: center;
+        border: 2px solid black;
+        margin-top: 50px;
+        background-color: bisque;
+        font-size: 17px;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+    <script>
+      let todo_table = document.getElementById("table");
+      let toDo = async () => {
+        try {
+          let response = await fetch(
+            "https://jsonplaceholder.typicode.com/todos"
+          );
+          let result = await response.json();
+          display_table(result);
+          // console.log(result)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      toDo();
+
+      let display_table = (details) => {
+        let tHead = document.createElement("tr");
+        tHead.className = "headTable";
+        let tH1 = document.createElement("th");
+        tH1.innerHTML = "userId";
+
+        let tH2 = document.createElement("th");
+        tH2.innerHTML = "id";
+
+        let tH3 = document.createElement("th");
+        tH3.innerHTML = "title";
+
+        let tH4 = document.createElement("th");
+        tH4.innerHTML = "completed";
+
+        tHead.append(tH1, tH2, tH3, tH4);
+        todo_table.append(tHead);
+
+        details.forEach((ele) => {
+          let tBody = document.createElement("tr");
+          tBody.className = "bodyTable";
+
+          let tD1 = document.createElement("td");
+          tD1.innerText = ele.userId;
+
+          let tD2 = document.createElement("td");
+          tD2.innerText = ele.id;
+
+          let tD3 = document.createElement("td");
+          tD3.innerText = ele.title;
+
+          let tD4 = document.createElement("td");
+          tD4.innerText = ele.completed;
+
+          tBody.append(tD1, tD2, tD3, tD4);
+          todo_table.append(tBody);
+        });
+      };
+    </script>
+  </body>
+</html>
