@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetchscholar</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 20px auto;
+        max-width: 1200px;
+        padding: 20px;
+      }
+
+      .card {
+        border: 1px solid #ddd;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* text-align: center; */
+      }
+
+      .card img {
+        max-width: 100%;
+        height: 200px;
+      }
+
+      select,
+      input,
+      button {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      select {
+        width: 150px;
+      }
+
+      input[type="text"] {
+        width: 200px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Add some responsive design */
+      @media (max-width: 768px) {
+        #root {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 576px) {
+        #root {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <select id="sort" onclick="handsort()">
+      <option>Select</option>
+      <option value="htl">High to low</option>
+      <option value="lth">Low to High</option>
+    </select>
+    <input type="text" name="" id="inp" />
+    <button onclick="handlechange()">SEARCH</button>
+    <div id="root"></div>
+    <script>
+      let wholedata = [];
+      let root = document.getElementById("root");
+      let input = document.getElementById("inp");
+      let fakestore = async () => {
+        try {
+          let response = await fetch("https://fakestoreapi.com/products");
+          let result = await response.json();
+          // console.log(result)
+          wholedata = result;
+          printData(result);
+        } catch (error) {
+          console.log("error found");
+        }
+      };
+      fakestore();
+      const printData = (details) => {
+        root.innerHTML = null;
+        console.log("details", details);
+        details.map((ele) => {
+          let userCard = document.createElement("div");
+          userCard.className = "card";
+
+          let userId = document.createElement("p");
+          userId.textContent = ele.id;
+
+          let userTitle = document.createElement("p");
+          userTitle.textContent = ele.title;
+
+          let userPrice = document.createElement("p");
+          userPrice.textContent = "Price " + ele.price;
+
+          let userDescription = document.createElement("p");
+          userDescription.textContent = ele.description;
+
+          let userCategory = document.createElement("p");
+          userCategory.textContent = ele.category;
+
+          let userImage = document.createElement("img");
+          userImage.src = ele.image;
+
+          let userRating = document.createElement("p");
+          userRating.textContent = ele.rating.rate;
+
+          let userRating2 = document.createElement("p");
+          userRating2.textContent = ele.rating.count;
+
+          userCard.append(
+            userId,
+            userTitle,
+            userPrice,
+            userDescription,
+            userCategory,
+            userImage,
+            userRating,
+            userRating2
+          );
+          root.append(userCard);
+        });
+      };
+
+      function handsort() {
+        var sort = document.getElementById("sort").value;
+        var sorteddata;
+
+        if (sort == "htl") {
+          var sorteddata = wholedata.sort((a, b) => {
+            return b.price - a.price;
+          });
+        } else if (sort == "lth") {
+          var sorteddata = wholedata.sort((a, b) => {
+            return a.price - b.price;
+          });
+        }
+        printData(sorteddata);
+      }
+
+      function handlechange() {
+        var filterdata;
+        console.log(input.value);
+        if (input.value == "men") {
+          filterdata = wholedata.filter((e) => {
+            return e.category == "men's clothing";
+          });
+        } else if (input.value == "electronics") {
+          filterdata = wholedata.filter((e) => {
+            return e.category == "electronics";
+          });
+        } else if (input.value == "women") {
+          filterdata = wholedata.filter((e) => {
+            return e.category == "women's clothing";
+          });
+        } else if (input.value == "jewelery") {
+          filterdata = wholedata.filter((e) => {
+            return e.category == "jewelery";
+          });
+        } else {
+          alert("No result found");
+          printData();
+        }
+        printData(filterdata);
+      }
+    </script>
+  </body>
+</html>
