@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather 2</title>
+
+    <style>
+      h1{
+        margin-top: 180px;
+      }
+      #main {
+        width: 340px;
+        margin: auto;
+        margin-left: 500px;
+        text-align: center;
+        padding: 10px;
+      }
+
+      button,
+      input {
+        text-align: center;
+        font-size: 20px;
+        border: 2px solid black;
+        border-radius: 5px;
+        color: rgb(168, 72, 72);
+        background-color: rgb(224, 214, 214);
+      }
+
+      #mainContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+        border: 2px solid black;
+        height: 400px;
+        width: 80%;
+        margin: auto;
+        margin-top: 50px;
+        border-radius: 20px;
+
+
+      }
+
+      .cards {
+        border: 2px solid black;
+        width: 150px;
+        margin: 10px;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: rgb(101, 150, 101);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <input
+        type="text"
+        name=""
+        id="cityInput"
+        placeholder="Search your city  climate here"
+      />
+      <button id="srch" onclick="searchClimate()">search</button>
+    </div>
+    <div id="mainContainer">
+      <h1>Weather Data Will Be Shown Here</h1>
+    </div>
+    <script>
+      async function searchClimate() {
+        try {
+          let cityInput = document.getElementById("cityInput");
+          let response = await fetch(
+            `http://api.openweathermap.org/data/2.5/forecast?q=${cityInput.value}&appid=12fd7e9115e0871e15f9509f359edebf`
+          );
+          let result = await response.json();
+          displayData(result);
+        } catch (error) {
+          console.log("error found");
+        }
+      }
+      let mainContainer = document.getElementById("mainContainer");
+
+      function displayData(data) {
+        mainContainer.textContent = "";
+        let firstweatherCard = document.createElement("div");
+        firstweatherCard.className = "cards";
+        let firstDate = document.createElement("p");
+        firstDate.textContent = `date:${data.list[0].dt_txt}`;
+        let firstLogo = document.createElement("img");
+        firstLogo.src = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
+        let cityMinTemp1 = document.createElement("p");
+        cityMinTemp1.textContent = `minimum temperature:${Math.floor(
+          data.list[0].main.temp_min - 273
+        )} deg C`;
+        let cityMaxTemp1 = document.createElement("p");
+        cityMaxTemp1.textContent = `maximum temperature:${Math.floor(
+          data.list[0].main.temp_max - 273
+        )} deg C`;
+        firstweatherCard.append(
+          firstDate,
+          firstLogo,
+          cityMinTemp1,
+          cityMaxTemp1
+        );
+
+        let secondweatherCard = document.createElement("div");
+        secondweatherCard.className = "cards";
+        let secondDate = document.createElement("p");
+        secondDate.textContent = `date:${data.list[8].dt_txt}`;
+        let secondLogo = document.createElement("img");
+        secondLogo.src = `https://openweathermap.org/img/wn/${data.list[8].weather[0].icon}@2x.png`;
+        let cityMinTemp2 = document.createElement("p");
+        cityMinTemp2.textContent = `minimum temperature:${Math.floor(
+          data.list[8].main.temp_min - 273
+        )} deg C`;
+        let cityMaxTemp2 = document.createElement("p");
+        cityMaxTemp2.textContent = `maximum temperature:${Math.floor(
+          data.list[8].main.temp_max - 273
+        )} deg C`;
+        secondweatherCard.append(
+          secondDate,
+          secondLogo,
+          cityMinTemp2,
+          cityMaxTemp2
+        );
+
+        let thirdweatherCard = document.createElement("div");
+        thirdweatherCard.className = "cards";
+        let thirdDate = document.createElement("p");
+        thirdDate.textContent = `date:${data.list[16].dt_txt}`;
+        let thirdLogo = document.createElement("img");
+        thirdLogo.src = `https://openweathermap.org/img/wn/${data.list[16].weather[0].icon}@2x.png`;
+        let cityMinTemp3 = document.createElement("p");
+        cityMinTemp3.textContent = `minimum temperature:${Math.floor(
+          data.list[16].main.temp_min - 273
+        )} deg C`;
+        let cityMaxTemp3 = document.createElement("p");
+        cityMaxTemp3.textContent = `maximum temperature:${Math.floor(
+          data.list[16].main.temp_max - 273
+        )} deg C`;
+        thirdweatherCard.append(
+          thirdDate,
+          thirdLogo,
+          cityMinTemp3,
+          cityMaxTemp3
+        );
+
+        let fourthweatherCard = document.createElement("div");
+        fourthweatherCard.className = "cards";
+        let fourthDate = document.createElement("p");
+        fourthDate.textContent = `date:${data.list[24].dt_txt}`;
+        let fourthLogo = document.createElement("img");
+        fourthLogo.src = `https://openweathermap.org/img/wn/${data.list[24].weather[0].icon}@2x.png`;
+        let cityMinTemp4 = document.createElement("p");
+        cityMinTemp4.textContent = `minimum temperature:${Math.floor(
+          data.list[24].main.temp_min - 273
+        )} deg C`;
+        let cityMaxTemp4 = document.createElement("p");
+        cityMaxTemp4.textContent = `maximum temperature:${Math.floor(
+          data.list[24].main.temp_max - 273
+        )} deg C`;
+        fourthweatherCard.append(
+          fourthDate,
+          fourthLogo,
+          cityMinTemp4,
+          cityMaxTemp4
+        );
+
+        let fifthweatherCard = document.createElement("div");
+        fifthweatherCard.className = "cards";
+        let fifthDate = document.createElement("p");
+        fifthDate.textContent = `date:${data.list[32].dt_txt}`;
+        let fifthLogo = document.createElement("img");
+        fifthLogo.src = `https://openweathermap.org/img/wn/${data.list[32].weather[0].icon}@2x.png`;
+        let cityMinTemp5 = document.createElement("p");
+        cityMinTemp5.textContent = `minimum temperature:${Math.floor(
+          data.list[32].main.temp_min - 273
+        )} deg C`;
+        let cityMaxTemp5 = document.createElement("p");
+        cityMaxTemp5.textContent = `maximum temperature:${Math.floor(
+          data.list[32].main.temp_max - 273
+        )} deg C`;
+        fifthweatherCard.append(
+          fifthDate,
+          fifthLogo,
+          cityMinTemp5,
+          cityMaxTemp5
+        );
+
+        mainContainer.append(
+          firstweatherCard,
+          secondweatherCard,
+          thirdweatherCard,
+          fourthweatherCard,
+          fifthweatherCard
+        );
+      }
+    </script>
+  </body>
+
+  
+
+</html>

@@ -129,7 +129,7 @@
           let inputCity = document.getElementById("inputCity");
 
           let response = await fetch(
-            `http://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=12fd7e9115e0871e15f9509f359edebf`
+            `https://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=12fd7e9115e0871e15f9509f359edebf`
           );
           let result = await response.json();
           display(result);
